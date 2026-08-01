@@ -36,11 +36,3 @@ window.showReferralCode = async function () {
         "Error: " + e.message;
   }
 };
-  const ref = doc(db, "users", "HJW5zQf9jmklYMGxlM8F");
-  const snap = await getDoc(ref);
-
-  if (snap.exists()) {
-    document.getElementById("myReferralCode").innerHTML =
-      "🎉 আপনার রেফার কোড: <b>" + snap.data().code + "</b>";
-  }
-};
