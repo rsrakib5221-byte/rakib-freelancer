@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+</head>
+<body>
+
+<h2>Register</h2>
+
+<input type="email" id="email" placeholder="Enter Email" required><br><br>
+
+<input type="password" id="password" placeholder="Enter Password" required><br><br>
+
+<button id="registerBtn">Register</button>
+
+<p id="message"></p>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
+  authDomain: "rakib-freelancer.firebaseapp.com",
+  projectId: "rakib-freelancer",
+  storageBucket: "rakib-freelancer.firebasestorage.app",
+  messagingSenderId: "172744042815",
+  appId: "1:172744042815:web:2b77927b0ecacf59d00b8a",
+  measurementId: "G-FKFC3JM9XR"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+document.getElementById("registerBtn").addEventListener("click", () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("message");
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      message.style.color = "green";
+      message.innerText = "Registration Successful!";
+      console.log(userCredential.user);
+    })
+    .catch((error) => {
+      message.style.color = "red";
+      message.innerText = error.message;
+    });
+});
+</script>
+
+</body>
+</html>
