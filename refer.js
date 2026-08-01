@@ -20,6 +20,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.showReferralCode = async function () {
+  try {
+    const ref = doc(db, "users", "HJW5zQf9jmkIYMGxIM8F");
+    const snap = await getDoc(ref);
+
+    if (snap.exists()) {
+      document.getElementById("myReferralCode").innerHTML =
+        "🎉 আপনার রেফার কোড: <b>" + snap.data().code + "</b>";
+    } else {
+      document.getElementById("myReferralCode").innerHTML =
+        "ডকুমেন্ট পাওয়া যায়নি";
+    }
+  } catch (e) {
+    document.getElementById("myReferralCode").innerHTML =
+        "Error: " + e.message;
+  }
+};
   const ref = doc(db, "users", "HJW5zQf9jmklYMGxlM8F");
   const snap = await getDoc(ref);
 
