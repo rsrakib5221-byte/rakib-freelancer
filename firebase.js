@@ -6,12 +6,12 @@ import {
 
 // Your Firebase Config
 const firebaseConfig = {
-  apiKey: "আপনার_apiKey",
+  apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
   authDomain: "rakib-freelancer.firebaseapp.com",
   projectId: "rakib-freelancer",
   storageBucket: "rakib-freelancer.firebasestorage.app",
   messagingSenderId: "172744042815",
-  appId: "আপনার_appId"
+  appId: "1:172744042815:web:2b77927b0ecacf59d00b8a"
 };
 
 // Initialize Firebase
