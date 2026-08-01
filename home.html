@@ -264,15 +264,30 @@ function openMenu(){
 function closeMenu(){
     document.getElementById("sidebar").style.width = "0";
 }
-
-function changeProfile(event){
+  
+async function changeProfile(event){
     const file = event.target.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = function(e){
-            document.getElementById("profileImage").src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+    if(!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "profile_upload");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/lv8msibg/image/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+
+    document.getElementById("profileImage").src = data.secure_url;
+    localStorage.setItem("profileImage", data.secure_url);
+}
+
+window.onload = function(){
+    const img = localStorage.getItem("profileImage");
+    if(img){
+        document.getElementById("profileImage").src = img;
     }
 }
 </script>
