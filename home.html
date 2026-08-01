@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f4f4;
+padding-bottom:90px;
+}
+
+header{
+background:#f7c500;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:#fff;
+font-size:22px;
+font-weight:bold;
+position:sticky;
+top:0;
+}
+
+.icon{
+font-size:24px;
+}
+
+.container{
+padding:15px;
+}
+
+.card{
+background:#fff;
+border-radius:20px;
+padding:15px;
+margin-bottom:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.item{
+background:#fafafa;
+padding:15px 5px;
+border-radius:15px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+}
+
+.item:hover{
+background:#ffe47a;
+}
+
+.item i{
+font-size:30px;
+margin-bottom:10px;
+color:#f7c500;
+}
+
+.item p{
+font-size:14px;
+font-weight:bold;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+box-shadow:0 -3px 10px rgba(0,0,0,.1);
+}
+
+.bottom a{
+text-decoration:none;
+color:#555;
+text-align:center;
+font-size:13px;
+}
+
+.bottom i{
+display:block;
+font-size:22px;
+margin-bottom:4px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<i class="fas fa-bars icon"></i>
+<span>Life Good</span>
+<i class="fas fa-bell icon"></i>
+</header>
+
+<div class="container">
+
+<div class="card">
+<div class="title">Easy Earning</div>
+
+<div class="grid">
+
+<div class="item">
+<i class="fas fa-ad"></i>
+<p>Ads</p>
+</div>
+
+<div class="item">
+<i class="fas fa-question-circle"></i>
+<p>Quiz</p>
+</div>
+
+<div class="item">
+<i class="fas fa-keyboard"></i>
+<p>Typing</p>
+</div>
+
+<div class="item">
+<i class="fas fa-bullhorn"></i>
+<p>Marketing</p>
+</div>
+
+<div class="item">
+<i class="fas fa-briefcase"></i>
+<p>Micro Job</p>
+</div>
+
+<div class="item">
+<i class="fas fa-user-plus"></i>
+<p>Job Post</p>
+</div>
+
+<div class="item">
+<i class="fas fa-book"></i>
+<p>Courses</p>
+</div>
+
+<div class="item">
+<i class="fas fa-globe"></i>
+<p>Service</p>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<div class="title">Special Earnings</div>
+
+<div class="grid">
+
+<div class="item"><i class="fab fa-google"></i><p>Gmail</p></div>
+<div class="item"><i class="fab fa-instagram"></i><p>Instagram</p></div>
+<div class="item"><i class="fab fa-whatsapp"></i><p>WhatsApp</p></div>
+<div class="item"><i class="fab fa-telegram"></i><p>Telegram</p></div>
+
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+
+<a href="#"><i class="fas fa-home"></i>Home</a>
+<a href="#"><i class="fas fa-video"></i>Reels</a>
+<a href="#"><i class="fas fa-store"></i>Reselling</a>
+<a href="#"><i class="fas fa-briefcase"></i>Jobs</a>
+<a href="#"><i class="fas fa-user"></i>Profile</a>
+
+</div>
+
+</body>
+  </html>
