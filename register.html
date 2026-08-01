@@ -1,56 +1,18 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
-</head>
-<body>
+import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-<h2>Register</h2>
+const registerBtn = document.getElementById("registerBtn");
 
-<input type="email" id="email" placeholder="Enter Email" required><br><br>
-
-<input type="password" id="password" placeholder="Enter Password" required><br><br>
-
-<button id="registerBtn">Register</button>
-
-<p id="message"></p>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
-  authDomain: "rakib-freelancer.firebaseapp.com",
-  projectId: "rakib-freelancer",
-  storageBucket: "rakib-freelancer.firebasestorage.app",
-  messagingSenderId: "172744042815",
-  appId: "1:172744042815:web:2b77927b0ecacf59d00b8a",
-  measurementId: "G-FKFC3JM9XR"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-document.getElementById("registerBtn").addEventListener("click", () => {
-  const email = document.getElementById("email").value;
+registerBtn.addEventListener("click", () => {
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
-  const message = document.getElementById("message");
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      message.style.color = "green";
-      message.innerText = "Registration Successful!";
-      console.log(userCredential.user);
+      alert("Registration Successful!");
+      window.location.href = "login.html";
     })
     .catch((error) => {
-      message.style.color = "red";
-      message.innerText = error.message;
+      alert(error.message);
     });
 });
-</script>
-
-</body>
-</html>
