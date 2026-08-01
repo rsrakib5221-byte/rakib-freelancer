@@ -3,123 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RS Rakib Freelancer</title>
+<title>Registration</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
+
 body{
-    font-family:Arial,sans-serif;
-    background:#f4f4f4;
-    color:#333;
-}
-header{
-    background:linear-gradient(135deg,#0d6efd,#00b4ff);
-    color:#fff;
-    text-align:center;
-    padding:60px 20px;
-}
-header h1{
-    font-size:40px;
-}
-header p{
-    margin-top:10px;
-    font-size:20px;
+background:linear-gradient(135deg,#0ea5e9,#2563eb);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-section{
-    padding:40px 20px;
-    text-align:center;
+.container{
+background:#fff;
+width:90%;
+max-width:380px;
+padding:25px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
-.card{
-    background:#fff;
-    padding:20px;
-    margin:15px auto;
-    max-width:400px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.1);
+h2{
+text-align:center;
+margin-bottom:20px;
+color:#2563eb;
 }
 
-.btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:12px 25px;
-    background:#198754;
-    color:#fff;
-    text-decoration:none;
-    border-radius:6px;
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
 }
 
-footer{
-    background:#222;
-    color:#fff;
-    text-align:center;
-    padding:20px;
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+color:#fff;
+border:none;
+border-radius:8px;
+font-size:17px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+p{
+text-align:center;
+margin-top:15px;
+}
+
+a{
+color:#2563eb;
+text-decoration:none;
 }
 </style>
-
 </head>
+
 <body>
 
-<header>
-<h1>RS Rakib Freelancer</h1>
-<p>Professional Website Designer & Firebase Developer</p>
-</header>
+<div class="container">
+<h2>Registration</h2>
 
-<section>
-<h2>👋 আমার সম্পর্কে</h2>
-<p>
-আমি একজন Freelancer। Website Design, Firebase, HTML, CSS,
-JavaScript এবং Responsive Website তৈরি করি।
-</p>
-</section>
+<form>
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email Address" required>
+<input type="password" placeholder="Password" required>
+<input type="password" placeholder="Confirm Password" required>
 
-<section>
-<h2>💼 আমার সার্ভিস</h2>
+<button type="submit">Register</button>
+</form>
 
-<div class="card">
-<h3>🌐 Website Design</h3>
-<p>আধুনিক ও মোবাইল ফ্রেন্ডলি ওয়েবসাইট তৈরি।</p>
+<p>Already have an account? <a href="login.html">Login</a></p>
+
 </div>
 
-<div class="card">
-<h3>🔥 Firebase Integration</h3>
-<p>Login, Register, Database ও Hosting সেটআপ।</p>
-</div>
-
-<div class="card">
-<h3>⚡ Responsive Website</h3>
-<p>সব মোবাইল ও কম্পিউটারে সুন্দরভাবে চলবে।</p>
-</div>
-<div class="card">
-  <h3>🎁 Refer Code System</h3>
-  <p>রেফার কোড তৈরি, শেয়ার ও ইনকাম করার সম্পূর্ণ সিস্টেম।</p>
-</div>
-    <button onclick="showReferralCode()" class="btn">
-🎁 Refer Code নিন
-</button>
-
-<p id="myReferralCode"></p>
-<a class="btn" href="https://github.com/rsrakib5221-byte" target="_blank">আমার GitHub</a>
-
-</section>
-
-<section>
-<p>Email: rsrakib5221@gmail.com</p>
-<p>WhatsApp: +8801837976455</p>
-</section>
-
-<footer>
-© 2026 RS Rakib Freelancer | All Rights Reserved
-</footer>
-<a href="https://wa.me/8801837976455" target="_blank"
-style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;font-size:18px;z-index:9999;">
-💬 WhatsApp
-</a>
-    <script type="module" src="refer.js"></script>
 </body>
 </html>
