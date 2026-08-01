@@ -258,13 +258,14 @@ margin-bottom:4px;
     </div>
 <script>
 function openMenu(){
-    document.getElementById("sidebar").style.width="260px";
+    document.getElementById("sidebar").style.width = "260px";
 }
 
 function closeMenu(){
-    document.getElementById("sidebar").style.width="0";
-}‌
-  function changeProfile(event){
+    document.getElementById("sidebar").style.width = "0";
+}
+
+function changeProfile(event){
     const file = event.target.files[0];
     if(file){
         const reader = new FileReader();
