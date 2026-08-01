@@ -94,10 +94,7 @@ try {
 
 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-await sendEmailVerification(userCredential.user, {
-  url: "https://rsrakib521-byte.github.io/",
-  handleCodeInApp: false
-});
+await sendEmailVerification(userCredential.user);
 
 await signOut(auth);
 
