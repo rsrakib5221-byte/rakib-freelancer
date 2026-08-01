@@ -247,8 +247,9 @@ margin-bottom:4px;
   </div>
 
   <a href="#">👤 Profile</a>
-  <a href="#">🖼️ Profile Picture</a>
+  <a href="#" onclick="document.getElementById('imageUpload').click()">🖼️ Profile Picture</a>
   <a href="#">🎁 Referral Code</a>
+    <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="changeProfile(event)">
   <a href="#">💸 Withdraw</a>
   <a href="#">📱 bKash</a>
   <a href="#">💰 Nagad</a>
@@ -262,6 +263,16 @@ function openMenu(){
 
 function closeMenu(){
     document.getElementById("sidebar").style.width="0";
+}‌
+  function changeProfile(event){
+    const file = event.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            document.getElementById("profileImage").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 }
 </script>
 </body>
