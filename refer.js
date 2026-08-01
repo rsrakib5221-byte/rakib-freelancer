@@ -1,11 +1,23 @@
-function showReferralCode() {
-  let code = localStorage.getItem("referralCode");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  if (!code) {
-    code = "RS" + Math.floor(100000 + Math.random() * 900000);
-    localStorage.setItem("referralCode", code);
+const firebaseConfig = {
+  // এখানে আপনার Firebase Config বসবে
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.showReferralCode = async function () {
+  const ref = doc(db, "users", "HJW5zQf9jmklYMGxlM8F");
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    document.getElementById("myReferralCode").innerHTML =
+      "🎉 আপনার রেফার কোড: <b>" + snap.data().code + "</b>";
   }
-
-  document.getElementById("myReferralCode").innerHTML =
-    "🎉 আপনার রেফার কোড: <b>" + code + "</b>";
-}
+};
