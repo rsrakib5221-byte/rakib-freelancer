@@ -52,7 +52,7 @@ async function loadRequests() {
 
   querySnapshot.forEach((requestDoc) => {
     const d = requestDoc.data();
-
+d.id = requestDoc.id;
     list.innerHTML += `
       <div class="card">
         <b>Amount:</b> ${d.amount}<br>
