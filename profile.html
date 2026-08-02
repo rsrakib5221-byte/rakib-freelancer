@@ -83,7 +83,7 @@ Profile
 </div>
 
 <div class="menu">
-<a href="#" onclick="editProfile()">👤 Edit Profile</a>
+<a href="javascript:void(0)" onclick="editProfile(); return false;">👤 Edit Profile</a>
 <a href="#">💸 Withdraw</a>
 <a href="#">📱 bKash</a>
 <a href="#">💰 Nagad</a>
@@ -92,7 +92,9 @@ Profile
 </div>
 
 <script>
-function editProfile() {
+    function editProfile() {
+    alert("Edit Profile Clicked");
+
     let name = prompt("Enter your name:", localStorage.getItem("userName") || "Rakib Freelancer");
     if (name === null) return;
 
@@ -107,6 +109,7 @@ function editProfile() {
 
     alert("Profile Updated!");
 }
+    
 
 window.onload = function () {
     const img = localStorage.getItem("profileImage");
