@@ -50,8 +50,22 @@ cursor:pointer;
 </div>
 
 <script>
-function submitWithdraw(){
-alert("Withdraw Request Submitted");
+function submitWithdraw() {
+    const amount = Number(document.getElementById("amount").value);
+    const method = document.getElementById("method").value;
+    const number = document.getElementById("number").value.trim();
+
+    if (amount < 100) {
+        alert("❌ সর্বনিম্ন 100 টাকা Withdraw করা যাবে।");
+        return;
+    }
+
+    if (number === "") {
+        alert("❌ আপনার " + method + " নম্বর লিখুন।");
+        return;
+    }
+
+    alert("✅ Withdraw Request Submitted");
 }
 </script>
 
