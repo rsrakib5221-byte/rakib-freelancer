@@ -87,6 +87,15 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     try {
+      const userRef = doc(db, "users", user.uid);
+const userSnap = await getDoc(userRef);
+
+const balance = Number(userSnap.data()?.balance || 0);
+
+if (balance < amount) {
+  alert("❌ Insufficient Balance");
+  return;
+}
         await addDoc(collection(db, "withdraws"), {
             email: user.email,
             amount: amount,
