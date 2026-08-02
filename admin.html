@@ -69,15 +69,30 @@ async function loadRequests() {
 }
 
 window.approveRequest = async (id) => {
-  await updateDoc(doc(db, "withdraws", id), { status: "Approved" });
-  loadRequests();
+  try {
+    await updateDoc(doc(db, "withdraws", id), {
+      status: "Approved"
+    });
+    alert("Approved Successfully");
+    loadRequests();
+  } catch (e) {
+    alert(e.message);
+    console.error(e);
+  }
 };
 
 window.rejectRequest = async (id) => {
-  await updateDoc(doc(db, "withdraws", id), { status: "Rejected" });
-  loadRequests();
+  try {
+    await updateDoc(doc(db, "withdraws", id), {
+      status: "Rejected"
+    });
+    alert("Rejected Successfully");
+    loadRequests();
+  } catch (e) {
+    alert(e.message);
+    console.error(e);
+  }
 };
-
 window.deleteRequest = async (id) => {
   await deleteDoc(doc(db, "withdraws", id));
   loadRequests();
