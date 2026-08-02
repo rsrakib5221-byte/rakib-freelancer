@@ -31,6 +31,35 @@ font-size:22px;
 font-weight:bold;
 position:sticky;
 top:0;
+}.
+  balance-card{
+background:#f7c500;
+color:#fff;
+margin:15px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:center;
+}
+
+.balance-card h3{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.balance-card h1{
+font-size:32px;
+margin-bottom:12px;
+}
+
+.balance-card button{
+background:#fff;
+color:#f7c500;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 }
 
 .icon{
@@ -164,6 +193,14 @@ margin-bottom:4px;
 </header>
 
 <div class="container">
+  <div class="balance-card">
+    <h3>Available Balance</h3>
+    <h1>৳ <span id="userBalance">0</span></h1>
+
+    <button onclick="withdrawMoney()">
+        <i class="fas fa-wallet"></i> Withdraw
+    </button>
+  </div>
 
 <div class="card">
 <div class="title">Easy Earning</div>
@@ -321,6 +358,8 @@ window.onload = function(){
 document.querySelector(".profile-box img").src = img;
    document.getElementById("profileImage").src = img;
     }
+  document.getElementById("userBalance").innerText =
+localStorage.getItem("balance") || "0";
 }
   async function withdrawMoney() {
     alert("Function Working");
