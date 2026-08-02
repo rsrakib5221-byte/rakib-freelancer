@@ -23,12 +23,12 @@ box-shadow:0 2px 5px rgba(0,0,0,.2);
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
-getFirestore,
-collection,
-getDocs,
-doc,
-updateDoc,
-deleteDoc
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -45,20 +45,45 @@ const db = getFirestore(app);
 
 const list = document.getElementById("list");
 
-const querySnapshot = await getDocs(collection(db,"withdraws"));
+async function loadRequests() {
+  list.innerHTML = "";
 
-querySnapshot.forEach((doc)=>{
-const d = doc.data();
+  const querySnapshot = await getDocs(collection(db, "withdraws"));
 
-list.innerHTML += `
-<div class="card">
-<b>Amount:</b> ${d.amount}<br>
-<b>Method:</b> ${d.method}<br>
-<b>Number:</b> ${d.number}<br>
-<b>Status:</b> ${d.status}
-</div>
-`;
-});
+  querySnapshot.forEach((requestDoc) => {
+    const d = requestDoc.data();
+
+    list.innerHTML += `
+      <div class="card">
+        <b>Amount:</b> ${d.amount}<br>
+        <b>Method:</b> ${d.method}<br>
+        <b>Number:</b> ${d.number}<br>
+        <b>Status:</b> ${d.status}<br><br>
+
+        <button onclick="approveRequest('${requestDoc.id}')">✅ Approve</button>
+        <button onclick="rejectRequest('${requestDoc.id}')">❌ Reject</button>
+        <button onclick="deleteRequest('${requestDoc.id}')">🗑 Delete</button>
+      </div>
+    `;
+  });
+}
+
+window.approveRequest = async (id) => {
+  await updateDoc(doc(db, "withdraws", id), { status: "Approved" });
+  loadRequests();
+};
+
+window.rejectRequest = async (id) => {
+  await updateDoc(doc(db, "withdraws", id), { status: "Rejected" });
+  loadRequests();
+};
+
+window.deleteRequest = async (id) => {
+  await deleteDoc(doc(db, "withdraws", id));
+  loadRequests();
+};
+
+loadRequests();
 </script>
 
 </body>
