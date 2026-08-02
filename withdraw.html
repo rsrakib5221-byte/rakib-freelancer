@@ -80,36 +80,38 @@ window.submitWithdraw = async function () {
         alert("❌ আপনার " + method + " নম্বর লিখুন।");
         return;
     }
-onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-        alert("Please login first");
+const user = auth.currentUser;
+
+if (!user) {
+    alert("Please login first");
+    return;
+}
+
+try {
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    const balance = Number(userSnap.data()?.balance || 0);
+
+    if (balance < amount) {
+        alert("❌ Insufficient Balance");
         return;
     }
 
-    try {
-      const userRef = doc(db, "users", user.uid);
-const userSnap = await getDoc(userRef);
+    await addDoc(collection(db, "withdraws"), {
+        email: user.email,
+        amount: amount,
+        method: method,
+        number: number,
+        status: "Pending",
+        createdAt: new Date()
+    });
 
-const balance = Number(userSnap.data()?.balance || 0);
+    alert("✅ Withdraw Request Submitted");
 
-if (balance < amount) {
-  alert("❌ Insufficient Balance");
-  return;
+} catch (e) {
+    alert("❌ Error: " + e.message);
 }
-        await addDoc(collection(db, "withdraws"), {
-            email: user.email,
-            amount: amount,
-            method: method,
-            number: number,
-            status: "Pending",
-            createdAt: new Date()
-        });
-
-        alert("✅ Withdraw Request Submitted");
-    } catch (e) {
-        alert("❌ Error: " + e.message);
-    }
-})
 };
 </script>
 
