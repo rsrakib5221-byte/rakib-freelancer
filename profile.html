@@ -130,7 +130,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-    function editProfile() {
+    window.editProfile = function () {
     alert("Edit Profile Clicked");
 
     let name = prompt("Enter your name:", localStorage.getItem("userName") || "Rakib Freelancer");
