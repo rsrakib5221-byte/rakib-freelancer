@@ -319,16 +319,21 @@ document.querySelector(".profile-box img").src = img;
     }
 }
   async function withdrawMoney() {
-    const amount = prompt("Withdraw Amount:");
+    alert("Function Working");
 
+    const amount = prompt("Withdraw Amount:");
     if (!amount) return;
 
-    await push(ref(db, "withdraws"), {
-        amount: amount,
-        time: Date.now()
-    });
+    try {
+        await push(ref(db, "withdraws"), {
+            amount: amount,
+            time: Date.now()
+        });
 
-    alert("Withdraw Request Submitted Successfully!");
+        alert("Saved to Firebase");
+    } catch (e) {
+        alert("Error: " + e.message);
+    }
   }
 </script>
 </body>
