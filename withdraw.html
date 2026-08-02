@@ -99,7 +99,7 @@ try {
     }
 
     await addDoc(collection(db, "withdraws"), {
-        email: user.email,
+        email: auth.currentUser?.email || "",
         amount: amount,
         method: method,
         number: number,
