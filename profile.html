@@ -108,7 +108,14 @@ Status: <span id="wStatus">No Request</span>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
@@ -158,9 +165,7 @@ if (user) {
         collection(db, "withdraws"),
         where("email", "==", user.email)
     );
-
-    const snapshot = await getDocs(q);
-
+onSnapshot(q, (snapshot) => {
     if (!snapshot.empty) {
         const d = snapshot.docs[snapshot.docs.length - 1].data();
 
@@ -168,6 +173,7 @@ if (user) {
         document.getElementById("wMethod").innerText = d.method;
         document.getElementById("wStatus").innerText = d.status;
     }
+});  
 }
 }
     const wAmount = localStorage.getItem("withdrawAmount");
