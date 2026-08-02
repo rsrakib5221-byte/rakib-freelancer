@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f4f4;
+}
+
+header{
+background:#f7c500;
+color:#fff;
+padding:18px;
+font-size:22px;
+font-weight:bold;
+display:flex;
+align-items:center;
+}
+
+header a{
+color:#fff;
+text-decoration:none;
+margin-right:15px;
+font-size:24px;
+}
+
+.profile{
+text-align:center;
+padding:30px;
+}
+
+.profile img{
+width:120px;
+height:120px;
+border-radius:50%;
+border:4px solid #f7c500;
+}
+
+.profile h2{
+margin:15px 0 5px;
+}
+
+.profile p{
+color:#666;
+}
+
+.menu{
+margin:20px;
+background:#fff;
+border-radius:15px;
+overflow:hidden;
+}
+
+.menu a{
+display:block;
+padding:18px;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="home.html"><i class="fas fa-arrow-left"></i></a>
+Profile
+</header>
+
+<div class="profile">
+<img id="profileImage" src="https://via.placeholder.com/120">
+<h2>Rakib Freelancer</h2>
+<p id="userEmail">user@email.com</p>
+</div>
+
+<div class="menu">
+<a href="#">👤 Edit Profile</a>
+<a href="#">💸 Withdraw</a>
+<a href="#">📱 bKash</a>
+<a href="#">💰 Nagad</a>
+<a href="#">🚀 Rocket</a>
+<a href="#">🚪 Logout</a>
+</div>
+
+<script>
+const img = localStorage.getItem("profileImage");
+if(img){
+document.getElementById("profileImage").src = img;
+}
+</script>
+
+</body>
+</html>
