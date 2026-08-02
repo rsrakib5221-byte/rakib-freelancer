@@ -298,9 +298,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import {
   getFirestore,
   collection,
-  addDoc
+  addDoc,
+  doc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
   authDomain: "rakib-freelancer.firebaseapp.com",
@@ -318,17 +321,15 @@ const db = getFirestore(app);
 window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
-  </script>
-<script>
-function openMenu(){
+window.openMenu = function(){
     document.getElementById("sidebar").style.width = "260px";
 }
 
-function closeMenu(){
+window.closeMenu = function(){
     document.getElementById("sidebar").style.width = "0";
 }
   
-async function changeProfile(event){
+window.changeProfile = async function(event){
     const file = event.target.files[0];
     if(!file) return;
 
@@ -361,7 +362,7 @@ document.querySelector(".profile-box img").src = img;
   document.getElementById("userBalance").innerText =
 localStorage.getItem("balance") || "0";
 }
-  async function withdrawMoney() {
+  window.withdrawMoney = async function() {
     alert("Function Working");
 
     const amount = prompt("Withdraw Amount:");
