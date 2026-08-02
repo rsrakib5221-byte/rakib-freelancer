@@ -370,6 +370,7 @@ localStorage.getItem("balance") || "0";
 
     try {
         await addDoc(collection(db, "withdraws"), {
+          email: getAuth().currentUser.email,
     amount: Number(amount),
     method: "bKash",
     number: "01837976455",
