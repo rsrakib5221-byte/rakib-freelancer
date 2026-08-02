@@ -89,7 +89,9 @@ window.submitWithdraw = async function () {
             status: "Pending",
             createdAt: new Date()
         });
-
+localStorage.setItem("withdrawAmount", amount);
+localStorage.setItem("withdrawMethod", method);
+localStorage.setItem("withdrawStatus", "Pending");
         alert("✅ Withdraw Request Submitted");
     } catch (e) {
         alert("❌ Error: " + e.message);
