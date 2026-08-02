@@ -81,7 +81,7 @@ window.submitWithdraw = async function () {
         return;
     }
 const user = auth.currentUser;
-
+alert(user ? user.email : "No User");
 if (!user) {
     alert("Please login first");
     return;
