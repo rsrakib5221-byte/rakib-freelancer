@@ -83,7 +83,7 @@ Profile
 </div>
 
 <div class="menu">
-<a href="#">👤 Edit Profile</a>
+<a href="#" onclick="editProfile()">👤 Edit Profile</a>
 <a href="#">💸 Withdraw</a>
 <a href="#">📱 bKash</a>
 <a href="#">💰 Nagad</a>
@@ -92,9 +92,31 @@ Profile
 </div>
 
 <script>
-const img = localStorage.getItem("profileImage");
-if(img){
-document.getElementById("profileImage").src = img;
+function editProfile() {
+    let name = prompt("Enter your name:", localStorage.getItem("userName") || "Rakib Freelancer");
+    if (name === null) return;
+
+    let email = prompt("Enter your email:", localStorage.getItem("userEmail") || "user@email.com");
+    if (email === null) return;
+
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userEmail", email);
+
+    document.querySelector("h2").innerText = name;
+    document.getElementById("userEmail").innerText = email;
+
+    alert("Profile Updated!");
+}
+
+window.onload = function () {
+    const img = localStorage.getItem("profileImage");
+    if (img) document.getElementById("profileImage").src = img;
+
+    const name = localStorage.getItem("userName");
+    if (name) document.querySelector("h2").innerText = name;
+
+    const email = localStorage.getItem("userEmail");
+    if (email) document.getElementById("userEmail").innerText = email;
 }
 </script>
 
