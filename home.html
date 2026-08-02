@@ -279,7 +279,12 @@ async function changeProfile(event){
     });
 
     const data = await res.json();
+console.log(data);
 
+if (data.error) {
+    alert(data.error.message);
+    return;
+}
     document.getElementById("profileImage").src = data.secure_url;
     localStorage.setItem("profileImage", data.secure_url);
   document.querySelector(".profile-box img").src = data.secure_url;
