@@ -107,7 +107,7 @@ Status: <span id="wStatus">No Request</span>
 </div>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import {
   getFirestore,
   collection,
@@ -158,36 +158,26 @@ window.onload = async function () {
     if (email) document.getElementById("userEmail").innerText = email;
 
     // 👇 এইখানে (লাইন ১৫৪-এর আগে) কোড বসাবেন
-const user = auth.currentUser;
+onAuthStateChanged(auth, (user) => {
+    if (!user) return;
 
-if (user) {
     const q = query(
         collection(db, "withdraws"),
         where("email", "==", user.email)
     );
-onSnapshot(q, (snapshot) => {
-    if (!snapshot.empty) {
-        const d = snapshot.docs[snapshot.docs.length - 1].data();
 
-        document.getElementById("wAmount").innerText = d.amount;
-        document.getElementById("wMethod").innerText = d.method;
-        document.getElementById("wStatus").innerText = d.status;
-    }
-});  
-}
-}
-    const wAmount = localStorage.getItem("withdrawAmount");
-const wMethod = localStorage.getItem("withdrawMethod");
-const wStatus = localStorage.getItem("withdrawStatus");
+    onSnapshot(q, (snapshot) => {
+        if (!snapshot.empty) {
+            const d = snapshot.docs[snapshot.docs.length - 1].data();
 
-if (wAmount) {
-    document.getElementById("wAmount").innerText = wAmount;
+            document.getElementById("wAmount").innerText = d.amount;
+            document.getElementById("wMethod").innerText = d.method;
+            document.getElementById("wStatus").innerText = d.status;
+        }
+    });
+});
 }
-if (wMethod) {
-    document.getElementById("wMethod").innerText = wMethod;
-}
-if (wStatus) {
-    document.getElementById("wStatus").innerText = wStatus;
+    
 }
 </script>
 
