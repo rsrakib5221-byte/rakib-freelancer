@@ -52,7 +52,7 @@ cursor:pointer;
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
   authDomain: "rakib-freelancer.firebaseapp.com",
@@ -65,7 +65,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const auth = getAuth(app);
 window.submitWithdraw = async function () {
     const amount = Number(document.getElementById("amount").value);
     const method = document.getElementById("method").value;
@@ -80,9 +80,15 @@ window.submitWithdraw = async function () {
         alert("❌ আপনার " + method + " নম্বর লিখুন।");
         return;
     }
+const user = auth.currentUser;
 
+if (!user) {
+    alert("Please login first");
+    return;
+}
     try {
         await addDoc(collection(db, "withdraws"), {
+          email: user.email,
             amount: amount,
             method: method,
             number: number,
