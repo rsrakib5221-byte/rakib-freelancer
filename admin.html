@@ -24,6 +24,7 @@ box-shadow:0 2px 5px rgba(0,0,0,.2);
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getFirestore,
+  getDoc,
   collection,
   getDocs,
   doc,
@@ -31,6 +32,9 @@ import {
   deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+  import {
+  getAuth
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
   const firebaseConfig = {
   apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
@@ -45,6 +49,7 @@ import {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+  const auth = getAuth(app);
 
 const list = document.getElementById("list");
 
@@ -73,6 +78,36 @@ d.id = requestDoc.id;
 
 window.approveRequest = async (id) => {
   try {
+    const requestRef = doc(db, "withdraws", id);
+const requestSnap = await getDoc(requestRef);
+
+if (!requestSnap.exists()) return;
+
+const request = requestSnap.data();
+
+const userQuery = await getDocs(
+  collection(db, "users")
+);
+
+let userDocId = "";
+
+userQuery.forEach((u) => {
+  if (u.data().email === request.email) {
+    userDocId = u.id;
+  }
+});
+    if (userDocId) {
+  const userRef = doc(db, "users", userDocId);
+  const userSnap = await getDoc(userRef);
+
+  if (userSnap.exists()) {
+    const balance = Number(userSnap.data().balance || 0);
+
+    await updateDoc(userRef, {
+      balance: balance - Number(request.amount)
+    });
+  }
+    }
     await updateDoc(doc(db, "withdraws", id), {
       status: "Approved"
     });
