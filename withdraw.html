@@ -77,8 +77,8 @@ window.submitWithdraw = async function () {
     }
 
     if (number === "") {
-        showPopup("✅ Withdraw Request Submitted");
-        return;
+    showPopup("❌ Account Number লিখুন");
+    return;
     }
 const user = auth.currentUser;
 
