@@ -80,6 +80,7 @@ Profile
 <img id="profileImage" src="https://via.placeholder.com/120">
 <h2>Rakib Freelancer</h2>
 <p id="userEmail">user@email.com</p>
+<p>Referral Code: <span id="refCode">Loading...</span></p>
 </div>
 
 <div class="menu">
@@ -160,7 +161,17 @@ window.onload = async function () {
     // 👇 এইখানে (লাইন ১৫৪-এর আগে) কোড বসাবেন
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
+const userQuery = query(
+    collection(db, "users"),
+    where("email", "==", user.email)
+);
 
+getDocs(userQuery).then((snap) => {
+    if (!snap.empty) {
+        document.getElementById("refCode").innerText =
+            snap.docs[0].data().referralCode;
+    }
+});
     const q = query(
         collection(db, "withdraws"),
         where("email", "==", user.email)
