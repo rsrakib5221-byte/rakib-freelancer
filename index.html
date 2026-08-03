@@ -110,7 +110,7 @@ await setDoc(doc(db, "users", uid), {
   uid: uid,
   email: email,
   balance: 0,
-  referralCode: referralCode,
+  code: referralCode,
   referredBy: referredBy,
   referralCount: 0,
   referralIncome: 0,
@@ -119,7 +119,7 @@ await setDoc(doc(db, "users", uid), {
   if (referredBy) {
   const q = query(
   collection(db, "users"),
-  where("referralCode", "==", referredBy)
+  where("code", "==", referredBy)
 );
 
   const snap = await getDocs(q);
