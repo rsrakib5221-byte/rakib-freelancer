@@ -113,13 +113,14 @@ try {
     showPopup("❌ Error: " + e.message);
 }
 };
-  function showPopup(message) {
-  document.getElementById("popupMessage").innerText = message;
-  document.getElementById("popup").style.display = "flex";
-}
+  window.showPopup = function(message) {
+    document.getElementById("popupMessage").innerText = message;
+    document.getElementById("popup").style.display = "flex";
+};
 
-window.closePopup = function () {
+window.closePopup = function() {
     document.getElementById("popup").style.display = "none";
+};
 };
 }
 </script>
