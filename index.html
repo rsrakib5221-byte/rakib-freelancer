@@ -99,6 +99,11 @@ window.register = async function () {
 const email = document.getElementById("email").value.trim();
 const referredBy = document.getElementById("referral").value.trim().toUpperCase();
 const password = document.getElementById("password").value.trim();
+  if (!referredBy) {
+    document.getElementById("msg").innerHTML =
+    "❌ Referral Code ছাড়া Registration করা যাবে না।";
+    return;
+  }
 try {
 
 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
