@@ -161,6 +161,8 @@ window.onload = async function () {
     // 👇 এইখানে (লাইন ১৫৪-এর আগে) কোড বসাবেন
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
+    alert(user.email);
+alert(localStorage.getItem("userEmail"));
 const userQuery = query(
     collection(db, "users"),
     where("email", "==", user.email)
