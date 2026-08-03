@@ -71,7 +71,11 @@ signInWithEmailAndPassword,
 sendEmailVerification,
 signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 const firebaseConfig = {
 apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
 authDomain: "rakib-freelancer.firebaseapp.com",
@@ -84,7 +88,7 @@ measurementId: "G-FKFC3JM9XR"
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
+const db = getFirestore(app);
 window.register = async function () {
 
 const email = document.getElementById("email").value.trim();
@@ -93,7 +97,20 @@ const password = document.getElementById("password").value.trim();
 try {
 
 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+const uid = userCredential.user.uid;
 
+const referralCode = "RF" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+await setDoc(doc(db, "users", uid), {
+  uid: uid,
+  email: email,
+  balance: 0,
+  referralCode: referralCode,
+  referredBy: "",
+  referralCount: 0,
+  referralIncome: 0,
+  createdAt: Date.now()
+});
 await sendEmailVerification(userCredential.user);
 
 await signOut(auth);
