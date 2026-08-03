@@ -118,8 +118,9 @@ try {
   document.getElementById("popup").style.display = "flex";
 }
 
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
+window.closePopup = function () {
+    document.getElementById("popup").style.display = "none";
+};
 }
 </script>
 
