@@ -169,7 +169,7 @@ const userQuery = query(
 getDocs(userQuery).then((snap) => {
     if (!snap.empty) {
         document.getElementById("refCode").innerText =
-            snap.docs[0].data().referralCode;
+            snap.docs[0].data().code;
     }
 });
     const q = query(
