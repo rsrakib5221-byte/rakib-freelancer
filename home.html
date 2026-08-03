@@ -31,7 +31,7 @@ font-size:22px;
 font-weight:bold;
 position:sticky;
 top:0;
-}.
+}
   .balance-card{
 background:#f7c500;
 color:#fff;
@@ -319,6 +319,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 window.db = db;
+    window.auth = auth;
 window.collection = collection;
 window.addDoc = addDoc;
 window.openMenu = function(){
