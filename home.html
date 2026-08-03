@@ -362,26 +362,9 @@ document.querySelector(".profile-box img").src = img;
   document.getElementById("userBalance").innerText =
 localStorage.getItem("balance") || "0";
 }
-  window.withdrawMoney = async function() {
-    alert("Function Working");
-
-    const amount = prompt("Withdraw Amount:");
-    if (!amount) return;
-
-    try {
-        await addDoc(collection(db, "withdraws"), {
-          email: getAuth().currentUser.email,
-    amount: Number(amount),
-    method: "bKash",
-    number: "01837976455",
-    status: "Pending",
-    createdAt: Date.now()
-});
-
-        alert("Saved to Firebase");
-    } catch (e) {
-        alert("Error: " + e.message);
-    }
+  window.withdrawMoney = function () {
+    window.location.href = "withdraw.html";
+  }
   }
 </script>
 </body>
