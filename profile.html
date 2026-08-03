@@ -167,6 +167,7 @@ const userQuery = query(
 );
 
 getDocs(userQuery).then((snap) => {
+    alert("Found: " + snap.size);
     if (!snap.empty) {
         document.getElementById("refCode").innerText =
             snap.docs[0].data().code;
