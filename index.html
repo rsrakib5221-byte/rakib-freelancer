@@ -121,7 +121,16 @@ const userCredential = await createUserWithEmailAndPassword(auth, email, passwor
 const uid = userCredential.user.uid;
 
 const referralCode = "RF" + Math.random().toString(36).substring(2, 8).toUpperCase();
-
+await setDoc(doc(db, "users", uid), {
+  uid: uid,
+  email: email,
+  balance: 0,
+  code: referralCode,
+  referredBy: referredBy,
+  referralCount: 0,
+  referralIncome: 0,
+  createdAt: Date.now()
+});
   if (!snap.empty) {
     const refDoc = snap.docs[0];
 
@@ -130,11 +139,7 @@ const referralCode = "RF" + Math.random().toString(36).substring(2, 8).toUpperCa
       referralIncome: increment(20),
       balance: increment(20)
     });
-
-    await updateDoc(doc(db, "users", uid), {
-      referredBy: referredBy,
-      balance: increment(20)
-    });
+    
   }
   }
 await sendEmailVerification(userCredential.user);
