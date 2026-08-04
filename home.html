@@ -355,10 +355,20 @@ if (data.error) {
   const user = auth.currentUser;
 
 if (user) {
-  await addDoc(collection(db, "profileImages"), {
-    uid: user.uid,
-    image: data.secure_url
-  });
+  const q = query(
+    collection(db, "users"),
+    where("uid", "==", user.uid)
+  );
+
+  const snap = await getDocs(q);
+
+  if (!snap.empty) {
+    const userDoc = snap.docs[0];
+
+    await updateDoc(userDoc.ref, {
+      profileImage: data.secure_url
+    });
+  }
 }
 }
 window.onload = function(){
