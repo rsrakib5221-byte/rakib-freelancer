@@ -141,7 +141,6 @@ await setDoc(doc(db, "users", uid), {
     });
     
   }
-  }
 await sendEmailVerification(userCredential.user);
 
 await signOut(auth);
