@@ -105,29 +105,22 @@ const password = document.getElementById("password").value.trim();
     return;
   }
 try {
-
-const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-const uid = userCredential.user.uid;
-
-const referralCode = "RF" + Math.random().toString(36).substring(2, 8).toUpperCase();
-
-await setDoc(doc(db, "users", uid), {
-  uid: uid,
-  email: email,
-  balance: 0,
-  code: referralCode,
-  referredBy: referredBy,
-  referralCount: 0,
-  referralIncome: 0,
-  createdAt: Date.now()
-});
-  if (referredBy) {
-  const q = query(
+const q = query(
   collection(db, "users"),
   where("code", "==", referredBy)
 );
 
-  const snap = await getDocs(q);
+const snap = await getDocs(q);
+
+if (snap.empty) {
+  document.getElementById("msg").innerHTML =
+  "❌ Invalid Referral Code";
+  return;
+}
+const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+const uid = userCredential.user.uid;
+
+const referralCode = "RF" + Math.random().toString(36).substring(2, 8).toUpperCase();
 
   if (!snap.empty) {
     const refDoc = snap.docs[0];
