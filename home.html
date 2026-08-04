@@ -371,34 +371,6 @@ if (user) {
   }
 }
 }
-window.onload = function(){
-    const img = localStorage.getItem("profileImage");
-    if(img){
-document.querySelector(".profile-box img").src = img;
-   document.getElementById("profileImage").src = img;
-    }
-  const user = auth.currentUser;
-
-if (user) {
-  const q = query(
-    collection(db, "users"),
-    where("uid", "==", user.uid)
-  );
-
-  const snap = await getDocs(q);
-
-  if (!snap.empty) {
-    const data = snap.docs[0].data();
-
-    if (data.profileImage) {
-      document.getElementById("profileImage").src = data.profileImage;
-      document.querySelector(".profile-box img").src = data.profileImage;
-    }
-  }
-}
-  document.getElementById("userBalance").innerText =
-localStorage.getItem("balance") || "0";
-}
   window.withdrawMoney = function () {
     window.location.href = "withdraw.html";
   };
