@@ -348,6 +348,14 @@ if (data.error) {
     document.getElementById("profileImage").src = data.secure_url;
     localStorage.setItem("profileImage", data.secure_url);
   document.querySelector(".profile-box img").src = data.secure_url;
+  const user = auth.currentUser;
+
+if (user) {
+  await addDoc(collection(db, "profileImages"), {
+    uid: user.uid,
+    image: data.secure_url
+  });
+}
 }
 window.onload = function(){
     const img = localStorage.getItem("profileImage");
