@@ -59,6 +59,22 @@ import {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
   const auth = getAuth(app);
+  const companyBalance = document.getElementById("companyBalance");
+const companyIncome = document.getElementById("companyIncome");
+const companyPaid = document.getElementById("companyPaid");
+
+async function loadCompanyWallet() {
+  const walletRef = doc(db, "company", "wallet");
+  const walletSnap = await getDoc(walletRef);
+
+  if (walletSnap.exists()) {
+    const data = walletSnap.data();
+
+    companyBalance.innerText = data.balance || 0;
+    companyIncome.innerText = data.totalIncome || 0;
+    companyPaid.innerText = data.totalPaid || 0;
+  }
+}
 
 const list = document.getElementById("list");
 
@@ -248,6 +264,7 @@ window.rejectVerification = async (id) => {
   }
 };
 loadVerificationRequests();
+  loadCompanyWallet();
 </script>
 
 </body>
