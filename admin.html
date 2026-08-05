@@ -63,7 +63,77 @@ const db = getFirestore(app);
   const companyBalance = document.getElementById("companyBalance");
 const companyIncome = document.getElementById("companyIncome");
 const companyPaid = document.getElementById("companyPaid");
+  const referralCommission = {
+  1: 70,
+  2: 30,
+  3: 5,
+  4: 3,
+  5: 2
+};
 
+  async function payReferralCommission(userEmail) {
+
+  const users = await getDocs(collection(db, "users"));
+
+let currentUser = null;
+
+users.forEach((u) => {
+  if (u.data().email === userEmail) {
+    currentUser = {
+      id: u.id,
+      ...u.data()
+    };
+  }
+});
+
+if (!currentUser) return;
+let refCode = currentUser.referredBy;
+
+if (!refCode) return;
+
+let refUser = null;
+
+users.forEach((u) => {
+  if (u.data().myReferralCode === refCode) {
+    refUser = {
+      id: u.id,
+      ...u.data()
+    };
+  }
+});
+
+if (!refUser) return;
+
+let currentRefUser = refUser;
+
+for (let level = 1; level <= 5; level++) {
+
+  if (!currentRefUser) break;
+
+  const commission = referralCommission[level];
+
+  await updateDoc(doc(db, "users", currentRefUser.id), {
+    balance: increment(commission)
+  });
+
+  const nextRefCode = currentRefUser.referredBy;
+
+if (!nextRefCode) {
+  currentRefUser = null;
+} else {
+  currentRefUser = null;
+
+  users.forEach((u) => {
+    if (u.data().myReferralCode === nextRefCode) {
+      currentRefUser = {
+        id: u.id,
+        ...u.data()
+      };
+    }
+  });
+}
+}
+  }
 async function loadCompanyWallet() {
   const walletRef = doc(db, "company", "wallet");
   const walletSnap = await getDoc(walletRef);
@@ -137,6 +207,7 @@ userQuery.forEach((u) => {
     await updateDoc(doc(db, "withdraws", id), {
       status: "Approved"
     });
+    await payReferralCommission(request.email);
     await updateDoc(doc(db, "company", "wallet"), {
   balance: increment(-Number(request.amount)),
   totalPaid: increment(Number(request.amount))
