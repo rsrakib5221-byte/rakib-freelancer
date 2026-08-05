@@ -168,8 +168,10 @@ const userQuery = query(
   collection(db, "users"),
   where("email", "==", user.email)
 );
+    console.log("Login Email:", user.email);
 getDocs(userQuery)
 .then((snap) => {
+    console.log("Documents Found:", snap.size);
     if (!snap.empty) {
         document.getElementById("refCode").innerText =
             snap.docs[0].data().code;
