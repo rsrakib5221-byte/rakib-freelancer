@@ -129,6 +129,8 @@ await setDoc(doc(db, "users", uid), {
   referredBy: referredBy,
   referralCount: 0,
   referralIncome: 0,
+  verified: false,
+verificationStatus: "Not Verified",
   createdAt: Date.now()
 });
   if (!snap.empty) {
