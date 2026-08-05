@@ -6,6 +6,88 @@
 <title>Rakib Freelancer - Login & Register</title>
 
 <style>
+  body{
+    background:linear-gradient(135deg,#1877f2,#00c6ff);
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+.register-box{
+    width:350px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+.register-box h2{
+    color:#1877f2;
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.register-box p{
+    color:#777;
+}
+
+
+.register-box input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    box-sizing:border-box;
+    outline:none;
+}
+
+
+.register-box input:focus{
+    border-color:#1877f2;
+}
+
+
+.register-box button{
+
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    background:#1877f2;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+
+}
+
+
+.register-box button:hover{
+
+    background:#145dbf;
+
+}
+
+
+#recaptcha-container{
+
+    margin:10px 0;
+
+}
+
+
+#msg{
+
+    margin-top:15px;
+    font-weight:bold;
+
+}
 body{
 font-family:Arial,sans-serif;
 background:#f2f2f2;
@@ -48,22 +130,46 @@ color:green;
 }
 </style>
 
-<body>
+<div class="register-box">
 
-<div class="box">
 <h2>Rakib Freelancer</h2>
-  <input type="text" id="phone" placeholder="Phone Number (01XXXXXXXXX)">
+
+<p>Create New Account</p>
+
+<input 
+type="text" 
+id="phone" 
+placeholder="📱 Phone Number (01XXXXXXXXX)"
+>
 
 <div id="recaptcha-container"></div>
 
-<button onclick="sendOTP()">Send OTP</button>
+<button onclick="sendOTP()">
+Send OTP
+</button>
 
-<input type="text" id="otp" placeholder="OTP Code">
 
-<button onclick="verifyOTP()">Verify & Register</button>
-<input type="text" id="referral" placeholder="Referral Code (Optional)">
+<input 
+type="text" 
+id="otp" 
+placeholder="🔐 Enter OTP"
+>
+
+
+<input 
+type="text" 
+id="referral" 
+placeholder="🎁 Referral Code"
+>
+
+
+<button onclick="verifyOTP()">
+Verify & Register
+</button>
+
+
 <p id="msg"></p>
-</div>
+
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -107,105 +213,143 @@ window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
 });
 
 const db = getFirestore(app);
-window.register = async function () {
-const email = document.getElementById("email").value.trim();
-const referredBy = document.getElementById("referral").value.trim().toUpperCase();
-const password = document.getElementById("password").value.trim();
-  if (!referredBy) {
-    document.getElementById("msg").innerHTML =
-    "❌ Referral Code ছাড়া Registration করা যাবে না।";
-    return;
-  }
-try {
-const q = query(
-  collection(db, "users"),
-  where("code", "==", referredBy)
-);
+let confirmationResult;
 
-const snap = await getDocs(q);
 
-if (snap.empty) {
-  document.getElementById("msg").innerHTML =
-  "❌ Invalid Referral Code";
-  return;
-}
-const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-const uid = userCredential.user.uid;
+// Send OTP
+window.sendOTP = async function(){
 
-const referralCode = "RF" + Math.random().toString(36).substring(2, 8).toUpperCase();
-await setDoc(doc(db, "users", uid), {
-  uid: uid,
-  email: email,
-  balance: 0,
-  code: referralCode,
-  referredBy: referredBy,
-  referralCount: 0,
-  referralIncome: 0,
-  verified: false,
-verificationStatus: "Not Verified",
-  createdAt: Date.now()
-});
-  if (!snap.empty) {
-    const refDoc = snap.docs[0];
+const phone = document.getElementById("phone").value.trim();
 
-    await updateDoc(refDoc.ref, {
-      referralCount: increment(1),
-      referralIncome: increment(20),
-      balance: increment(20)
-    });
-    
-  }
-await sendEmailVerification(userCredential.user);
 
-await signOut(auth);
+if(phone.length !== 11){
 
 document.getElementById("msg").innerHTML =
-"✅ Registration Successful.<br>📧 Verification Email পাঠানো হয়েছে। আগে Email Verify করুন।";
-
-} catch (error) {
-
-document.getElementById("msg").innerHTML =
-"❌ " + error.message;
-
-}
-
-}
-
-  window.login = async function () {
-
-const email = document.getElementById("email").value.trim();
-const password = document.getElementById("password").value.trim();
-
-try {
-
-const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-await userCredential.user.reload();
-
-if (!userCredential.user.emailVerified) {
-
-await signOut(auth);
-
-document.getElementById("msg").innerHTML =
-"❌ আগে আপনার Email Verify করুন।";
+"❌ সঠিক ফোন নাম্বার দিন";
 
 return;
 
 }
 
-document.getElementById("msg").innerHTML =
-"✅ Login Successful";
-localStorage.setItem("userEmail", userCredential.user.email);
-window.location.href = "home.html";
 
-} catch (error) {
+try{
+
+
+window.recaptchaVerifier = new RecaptchaVerifier(
+auth,
+"recaptcha-container",
+{
+size:"normal"
+}
+);
+
+
+confirmationResult = await signInWithPhoneNumber(
+auth,
+"+88"+phone,
+window.recaptchaVerifier
+);
+
 
 document.getElementById("msg").innerHTML =
-"❌ " + error.message;
+"✅ OTP পাঠানো হয়েছে";
+
+
+}catch(error){
+
+document.getElementById("msg").innerHTML =
+"❌ "+error.message;
 
 }
 
-  }
+}
+
+
+
+// Verify OTP & Register
+
+window.verifyOTP = async function(){
+
+const otp =
+document.getElementById("otp").value.trim();
+
+const referral =
+document.getElementById("referral").value.trim();
+
+
+if(!otp){
+
+document.getElementById("msg").innerHTML =
+"❌ OTP দিন";
+
+return;
+
+}
+
+
+try{
+
+
+const result = await confirmationResult.confirm(otp);
+
+
+const user = result.user;
+
+
+const referralCode =
+"RF"+Math.random().toString(36).substring(2,8).toUpperCase();
+
+
+
+await setDoc(doc(db,"users",user.uid),{
+
+uid:user.uid,
+
+phone:user.phoneNumber,
+
+balance:0,
+
+code:referralCode,
+
+referredBy:referral,
+
+referralCount:0,
+
+referralIncome:0,
+
+createdAt:Date.now()
+
+});
+
+
+
+document.getElementById("msg").innerHTML =
+"✅ Registration Successful";
+
+
+localStorage.setItem(
+"userPhone",
+user.phoneNumber
+);
+
+
+setTimeout(()=>{
+
+window.location.href="home.html";
+
+},1500);
+
+
+
+}catch(error){
+
+
+document.getElementById("msg").innerHTML =
+"❌ OTP ভুল হয়েছে";
+
+
+}
+
   
 </script>
 </body>
