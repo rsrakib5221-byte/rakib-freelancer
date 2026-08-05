@@ -165,6 +165,29 @@ async function loadVerificationRequests() {
 }
   window.approveVerification = async (id, email) => {
   try {
+    const currentDoc = await getDoc(doc(db, "verificationRequests", id));
+const currentData = currentDoc.data();
+
+const allRequests = await getDocs(collection(db, "verificationRequests"));
+
+let duplicate = false;
+
+allRequests.forEach((r) => {
+  const data = r.data();
+
+  if (
+    r.id !== id &&
+    data.trxid === currentData.trxid &&
+    data.status === "Approved"
+  ) {
+    duplicate = true;
+  }
+});
+
+if (duplicate) {
+  alert("এই Transaction ID আগে ব্যবহার করা হয়েছে!");
+  return;
+}
     const userQuery = await getDocs(collection(db, "users"));
 
     let userDocId = "";
