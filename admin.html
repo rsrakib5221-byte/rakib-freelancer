@@ -19,7 +19,9 @@ box-shadow:0 2px 5px rgba(0,0,0,.2);
 <h2>Withdraw Requests</h2>
 
 <div id="list"></div>
+<h2>Verification Requests</h2>
 
+<div id="verificationList"></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
@@ -137,6 +139,62 @@ window.deleteRequest = async (id) => {
 };
 
 loadRequests();
+  const verificationList = document.getElementById("verificationList");
+
+async function loadVerificationRequests() {
+  verificationList.innerHTML = "";
+
+  const snapshot = await getDocs(collection(db, "verificationRequests"));
+
+  snapshot.forEach((docSnap) => {
+    const d = docSnap.data();
+
+    verificationList.innerHTML += `
+      <div class="card">
+        <b>Name:</b> ${d.name}<br>
+        <b>Email:</b> ${d.email}<br>
+        <b>Method:</b> ${d.method}<br>
+        <b>Phone:</b> ${d.phone}<br>
+        <b>TrxID:</b> ${d.trxid}<br>
+        <b>Status:</b> ${d.status}<br><br>
+
+        <button onclick="approveVerification('${docSnap.id}','${d.email}')">✅ Approve</button>
+      </div>
+    `;
+  });
+}
+  window.approveVerification = async (id, email) => {
+  try {
+    const userQuery = await getDocs(collection(db, "users"));
+
+    let userDocId = "";
+
+    userQuery.forEach((u) => {
+      if (u.data().email === email) {
+        userDocId = u.id;
+      }
+    });
+
+    if (userDocId) {
+      await updateDoc(doc(db, "users", userDocId), {
+        verified: true
+      });
+    }
+
+    await updateDoc(doc(db, "verificationRequests", id), {
+      status: "Approved"
+    });
+
+    alert("Verification Approved Successfully");
+    loadVerificationRequests();
+
+  } catch (e) {
+    alert(e.message);
+    console.error(e);
+  }
+};
+
+loadVerificationRequests();
 </script>
 
 </body>
