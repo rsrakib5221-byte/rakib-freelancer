@@ -170,7 +170,7 @@ const db = getFirestore(app);
 let confirmationResult;
 
 
-// Send
+
 window.sendOTP = async function(){
 alert("Send OTP Clicked");
 const phone = document.getElementById("phone").value.trim();
@@ -218,7 +218,7 @@ document.getElementById("msg").innerHTML =
 
 }
 
-
+document.getElementById("sendBtn").onclick = sendOTP;
 
 // Verify OTP & Register
 
