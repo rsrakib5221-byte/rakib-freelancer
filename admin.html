@@ -159,7 +159,7 @@ async function loadVerificationRequests() {
         <b>Status:</b> ${d.status}<br><br>
 
         <button onclick="approveVerification('${docSnap.id}','${d.email}')">✅ Approve</button>
-      </div>
+     <button onclick="rejectVerification('${docSnap.id}')">❌ Reject</button> </div>
     `;
   });
 }
@@ -216,7 +216,19 @@ if (duplicate) {
     console.error(e);
   }
 };
+window.rejectVerification = async (id) => {
+  try {
+    await updateDoc(doc(db, "verificationRequests", id), {
+      status: "Rejected"
+    });
 
+    alert("Verification Rejected Successfully");
+    loadVerificationRequests();
+  } catch (e) {
+    alert(e.message);
+    console.error(e);
+  }
+};
 loadVerificationRequests();
 </script>
 
