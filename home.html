@@ -302,7 +302,7 @@ where,
 getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
   authDomain: "rakib-freelancer.firebaseapp.com",
@@ -374,6 +374,33 @@ if (user) {
   window.withdrawMoney = function () {
     window.location.href = "withdraw.html";
   }
-</script>
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  const q = query(
+    collection(db, "users"),
+    where("uid", "==", user.uid)
+  );
+
+  const snap = await getDocs(q);
+
+  if (!snap.empty) {
+    const data = snap.docs[0].data();
+
+    document.getElementById("userEmail").innerText = data.email;
+    document.querySelector(".profile-box h3").innerText =
+      data.name || "Rakib Freelancer";
+
+    document.getElementById("userBalance").innerText =
+      data.balance || 0;
+
+    if (data.profileImage) {
+      document.getElementById("profileImage").src = data.profileImage;
+    }
+  }
+});</script>
 </body>
   </html>
