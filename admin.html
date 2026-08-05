@@ -137,6 +137,12 @@ userQuery.forEach((u) => {
     await updateDoc(doc(db, "withdraws", id), {
       status: "Approved"
     });
+    await updateDoc(doc(db, "company", "wallet"), {
+  balance: increment(-Number(request.amount)),
+  totalPaid: increment(Number(request.amount))
+});
+
+loadCompanyWallet();
     alert("Approved Successfully");
     loadRequests();
   } catch (e) {
