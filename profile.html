@@ -166,11 +166,18 @@ const userQuery = query(
   collection(db, "users"),
   where("email", "==", user.email)
 );
-getDocs(userQuery).then((snap) => {
+getDocs(userQuery)
+.then((snap) => {
     if (!snap.empty) {
         document.getElementById("refCode").innerText =
             snap.docs[0].data().code;
+    } else {
+        document.getElementById("refCode").innerText = "Not Found";
     }
+})
+.catch((error) => {
+    console.error(error);
+    document.getElementById("refCode").innerText = "Network Error";
 });
     const q = query(
         collection(db, "withdraws"),
