@@ -38,7 +38,8 @@ import {
   getDocs,
   doc,
   updateDoc,
-  deleteDoc
+  deleteDoc,
+increment
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
   import {
@@ -232,6 +233,12 @@ if (duplicate) {
       status: "Approved"
     });
 
+    await updateDoc(doc(db, "company", "wallet"), {
+  balance: increment(150),
+  totalIncome: increment(150)
+});
+
+loadCompanyWallet();
     alert("Verification Approved Successfully");
     loadVerificationRequests();
 
