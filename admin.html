@@ -160,6 +160,7 @@ async function loadVerificationRequests() {
 
         <button onclick="approveVerification('${docSnap.id}','${d.email}')">✅ Approve</button>
      <button onclick="rejectVerification('${docSnap.id}')">❌ Reject</button> </div>
+     <button onclick="deleteVerification('${docSnap.id}')">🗑️ Delete</button>
     `;
   });
 }
@@ -211,6 +212,16 @@ if (duplicate) {
     alert("Verification Approved Successfully");
     loadVerificationRequests();
 
+  } catch (e) {
+    alert(e.message);
+    console.error(e);
+  }
+};
+  window.deleteVerification = async (id) => {
+  try {
+    await deleteDoc(doc(db, "verificationRequests", id));
+    alert("Verification Deleted Successfully");
+    loadVerificationRequests();
   } catch (e) {
     alert(e.message);
     console.error(e);
