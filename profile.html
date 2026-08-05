@@ -130,8 +130,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-    alert("JavaScript Started");
-    alert("Current User: " + auth.currentUser?.email);
 const db = getFirestore(app);
     window.editProfile = function () {
     alert("Edit Profile Clicked");
@@ -163,7 +161,6 @@ window.onload = async function () {
     // 👇 এইখানে (লাইন ১৫৪-এর আগে) কোড বসাবেন
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
-alert("User Login: " + user.email);
 document.getElementById("refCode").innerText = "Connected";
 const userQuery = query(
   collection(db, "users"),
