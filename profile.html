@@ -161,7 +161,8 @@ window.onload = async function () {
     // 👇 এইখানে (লাইন ১৫৪-এর আগে) কোড বসাবেন
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
-
+alert("User Login: " + user.email);
+document.getElementById("refCode").innerText = "Connected";
 const userQuery = query(
   collection(db, "users"),
   where("email", "==", user.email)
