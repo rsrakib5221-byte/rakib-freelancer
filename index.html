@@ -104,7 +104,7 @@ placeholder="📱 Phone Number (+8801XXXXXXXXX)"
 >
 
 <div id="recaptcha-container"></div>
-  <button id="sendBtn">
+  <button id="sendBtn" onclick="sendOTP()">
 Send OTP
   </button>
 <input 
@@ -168,8 +168,7 @@ auth,
   }
 }
 );
-
-document.getElementById("sendBtn").addEventListener("click", sendOTP);
+  ;
 
 
 
