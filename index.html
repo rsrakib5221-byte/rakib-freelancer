@@ -187,21 +187,11 @@ return;
 try{
 
 
-window.recaptchaVerifier = new RecaptchaVerifier(
-auth,
-"recaptcha-container",
-{
-size:"normal"
-}
-);
-
-
 confirmationResult = await signInWithPhoneNumber(
 auth,
 phone,
 window.recaptchaVerifier
 );
-
 
 document.getElementById("msg").innerHTML =
 "✅ OTP পাঠানো হয়েছে";
