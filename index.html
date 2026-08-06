@@ -175,7 +175,7 @@ alert("Send OTP Clicked");
 const phone = document.getElementById("phone").value.trim();
 
 
-if(phone.length !== 11){
+if(!phone.startsWith("+880") || phone.length !== 14){
 
 document.getElementById("msg").innerHTML =
 "❌ সঠিক ফোন নাম্বার দিন";
@@ -183,7 +183,6 @@ document.getElementById("msg").innerHTML =
 return;
 
 }
-
 
 try{
 
@@ -199,7 +198,7 @@ size:"normal"
 
 confirmationResult = await signInWithPhoneNumber(
 auth,
-"+88"+phone,
+phone,
 window.recaptchaVerifier
 );
 
