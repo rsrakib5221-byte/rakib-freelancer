@@ -155,8 +155,10 @@ measurementId: "G-FKFC3JM9XR"
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+  
+const db = getFirestore(app);
+let confirmationResult;
+  window.recaptchaVerifier = new RecaptchaVerifier(...)
   size: "normal",
   callback: () => {
     console.log("reCAPTCHA verified");
