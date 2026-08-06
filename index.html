@@ -3,93 +3,412 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rakib Freelancer - Login & Register</title>
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
-  body{
-    background:linear-gradient(135deg,#1877f2,#00c6ff);
-    font-family:Arial,sans-serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-.register-box{
-    width:350px;
-    background:white;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    text-align:center;
+body{
+background:#f4f4f4;
+padding-bottom:90px;
 }
 
-.register-box h2{
-    color:#1877f2;
-    font-size:28px;
-    margin-bottom:5px;
+header{
+background:#f7c500;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:#fff;
+font-size:22px;
+font-weight:bold;
+position:sticky;
+top:0;
+}
+  .balance-card{
+background:#f7c500;
+color:#fff;
+margin:15px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:center;
 }
 
-.register-box p{
-    color:#777;
+.balance-card h3{
+font-size:18px;
+margin-bottom:8px;
 }
 
-
-.register-box input{
-    width:100%;
-    padding:14px;
-    margin:10px 0;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:15px;
-    box-sizing:border-box;
-    outline:none;
+.balance-card h1{
+font-size:32px;
+margin-bottom:12px;
 }
 
-
-.register-box input:focus{
-    border-color:#1877f2;
+.balance-card button{
+background:#fff;
+color:#f7c500;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 }
 
-
-.register-box button{
-
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:none;
-    border-radius:10px;
-    background:#1877f2;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-
+.icon{
+font-size:24px;
 }
 
-
-.register-box button:hover{
-
-    background:#145dbf;
-
+.container{
+padding:15px;
 }
 
-
-#recaptcha-container{
-
-    margin:10px 0;
-
+.card{
+background:#fff;
+border-radius:20px;
+padding:15px;
+margin-bottom:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
-
-#msg{
-
-    margin-top:15px;
-    font-weight:bold;
-
+.title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:15px;
 }
 
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.item{
+background:#fafafa;
+padding:15px 5px;
+border-radius:15px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+}
+
+.item:hover{
+background:#ffe47a;
+}
+
+.item i{
+font-size:30px;
+margin-bottom:10px;
+color:#f7c500;
+}
+
+.item p{
+font-size:14px;
+font-weight:bold;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+box-shadow:0 -3px 10px rgba(0,0,0,.1);
+}
+
+.bottom a{
+text-decoration:none;
+color:#555;
+text-align:center;
+font-size:13px;
+}
+.sidebar{
+height:100%;
+width:0;
+position:fixed;
+top:0;
+left:0;
+background:#fff;
+overflow-x:hidden;
+transition:.3s;
+box-shadow:2px 0 10px rgba(0,0,0,.2);
+z-index:999;
+padding-top:20px;
+}
+
+.sidebar a{
+display:block;
+padding:15px 20px;
+text-decoration:none;
+color:#333;
+font-size:18px;
+border-bottom:1px solid #eee;
+}
+
+.sidebar a:hover{
+background:#f5f5f5;
+}
+
+.closebtn{
+font-size:35px;
+cursor:pointer;
+margin-left:15px;
+}
+
+.profile-box{
+text-align:center;
+padding:20px;
+}
+
+.profile-box img{
+width:80px;
+height:80px;
+border-radius:50%;
+border:3px solid #f7c500;
+}
+.bottom i{
+display:block;
+font-size:22px;
+margin-bottom:4px;
+}
 </style>
 
+</head>
+<body>
+
+<header>
+<i class="fas fa-bars icon" onclick="openMenu()"></i>
+<span>Rakib Freelancer</span>
+<i class="fas fa-bell icon"></i>
+</header>
+
+<div class="container">
+  <div class="balance-card">
+    <h3>Available Balance</h3>
+    <h1>৳ <span id="userBalance">0</span></h1>
+
+    <button onclick="withdrawMoney()">
+        <i class="fas fa-wallet"></i> Withdraw
+    </button>
+  </div>
+
+<div class="card">
+<div class="title">Easy Earning</div>
+
+<div class="grid">
+
+<div class="item" onclick="window.location.href='ads.html'">
+    <i class="fa-solid fa-ad"></i>
+    <p>Ads</p>
+</div>
+
+<div class="item">
+<i class="fas fa-keyboard"></i>
+<p>Typing</p>
+</div>
+
+<div class="item">
+<i class="fas fa-bullhorn"></i>
+<p>Marketing</p>
+</div>
+
+<div class="item">
+<i class="fas fa-briefcase"></i>
+<p>Micro Job</p>
+</div>
+
+<div class="item">
+<i class="fas fa-user-plus"></i>
+<p>Job Post</p>
+</div>
+
+<div class="item">
+<i class="fas fa-book"></i>
+<p>Courses</p>
+</div>
+
+<div class="item">
+<i class="fas fa-globe"></i>
+<p>Service</p>
+</div>
+<div class="item" onclick="window.location.href='verification.html'">
+    <i class="fas fa-user-check"></i>
+    <p>Verification</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="title">Special Earnings</div>
+
+<div class="grid">
+
+<div class="item"><i class="fab fa-google"></i><p>Gmail</p></div>
+<div class="item"><i class="fab fa-instagram"></i><p>Instagram</p></div>
+<div class="item"><i class="fab fa-whatsapp"></i><p>WhatsApp</p></div>
+<div class="item"><i class="fab fa-telegram"></i><p>Telegram</p></div>
+
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+
+<a href="#"><i class="fas fa-home"></i>Home</a>
+<a href="#"><i class="fas fa-video"></i>Reels</a>
+<a href="#"><i class="fas fa-store"></i>Reselling</a>
+<a href="#"><i class="fas fa-briefcase"></i>Jobs</a>
+<a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+
+</div>
+  <div id="sidebar" class="sidebar">
+  <span class="closebtn" onclick="closeMenu()">&times;</span>
+
+  <div class="profile-box">
+    <img id="profileImage" src="https://via.placeholder.com/80">
+    <h3>Rakib Freelancer</h3>
+    <p id="userEmail">user@email.com</p>
+  </div>
+
+  <a href="#">👤 Profile</a>
+  <a href="#" onclick="document.getElementById('imageUpload').click()">🖼️ Profile Picture</a>
+  <a href="#">🎁 Referral Code</a>
+    <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="changeProfile(event)">
+  <a href="#" onclick="withdrawMoney()">💸 Withdraw</a>
+  <a href="#">📱 bKash</a>
+  <a href="#">💰 Nagad</a>
+  <a href="#">🚀 Rocket</a>
+  <a href="#">🚪 Logout</a>
+    </div>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+updateDoc,
+  query,
+where,
+getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
+  authDomain: "rakib-freelancer.firebaseapp.com",
+  databaseURL: "https://rakib-freelancer-default-rtdb.firebaseio.com",
+  projectId: "rakib-freelancer",
+  storageBucket: "rakib-freelancer.firebasestorage.app",
+  messagingSenderId: "172744042815",
+  appId: "1:172744042815:web:2b77927b0ecacf59d00b8a",
+  measurementId: "G-FKFC3JM9XR"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+  if (user) {
+    localStorage.setItem("userEmail", user.email);
+  }
+});
+window.db = db;
+    window.auth = auth;
+window.collection = collection;
+window.addDoc = addDoc;
+window.openMenu = function(){
+    document.getElementById("sidebar").style.width = "260px";
+}
+
+window.closeMenu = function(){
+    document.getElementById("sidebar").style.width = "0";
+}
+  
+window.changeProfile = async function(event){
+    const file = event.target.files[0];
+    if(!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "profile_upload");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/lv8msibg/image/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+console.log(data);
+
+if (data.error) {
+    alert(data.error.message);
+    return;
+}
+    document.getElementById("profileImage").src = data.secure_url;
+    localStorage.setItem("profileImage", data.secure_url);
+  document.querySelector(".profile-box img").src = data.secure_url;
+  const user = auth.currentUser;
+
+if (user) {
+  const q = query(
+    collection(db, "users"),
+    where("uid", "==", user.uid)
+  );
+
+  const snap = await getDocs(q);
+
+  if (!snap.empty) {
+    const userDoc = snap.docs[0];
+
+    await updateDoc(userDoc.ref, {
+      profileImage: data.secure_url
+    });
+  }
+}
+}
+  window.withdrawMoney = function () {
+    window.location.href = "withdraw.html";
+  }
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  const q = query(
+    collection(db, "users"),
+    where("uid", "==", user.uid)
+  );
+
+  const snap = await getDocs(q);
+
+  if (!snap.empty) {
+    const data = snap.docs[0].data();
+
+    document.getElementById("userEmail").innerText = data.email;
+    document.querySelector(".profile-box h3").innerText =
+      data.name || "Rakib Freelancer";
+
+    document.getElementById("userBalance").innerText =
+      data.balance || 0;
+
+    if (data.profileImage) {
+      document.getElementById("profileImage").src = data.profileImage;
+    }
+  }
+});</script>
 </body>
 </html>
