@@ -157,6 +157,13 @@ placeholder="🔐 Enter OTP">
   signInWithPhoneNumber,
   RecaptchaVerifier
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 const firebaseConfig = {
 apiKey: "AIzaSyAaQIX6yMxjf6bkHD6HPSImNF3o7r0fZvo",
 authDomain: "rakib-freelancer.firebaseapp.com",
