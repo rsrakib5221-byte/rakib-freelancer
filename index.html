@@ -104,10 +104,9 @@ placeholder="📱 Phone Number (+8801XXXXXXXXX)"
 >
 
 <div id="recaptcha-container"></div>
-
-<button id="sendBtn" onclick="sendOTP()">
+  <button id="sendBtn">
 Send OTP
-</button>
+  </button>
 <input 
 type="text" 
 id="otp" 
@@ -164,8 +163,7 @@ window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
   }
 });
 
-const db = getFirestore(app);
-let confirmationResult;
+document.getElementById("sendBtn").addEventListener("click", sendOTP);
 
 
 
