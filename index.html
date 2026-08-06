@@ -158,12 +158,16 @@ const auth = getAuth(app);
   
 const db = getFirestore(app);
 let confirmationResult;
-  window.recaptchaVerifier = new RecaptchaVerifier(...)
+  window.recaptchaVerifier = new RecaptchaVerifier(
+auth,
+"recaptcha-container",
+{
   size: "normal",
   callback: () => {
     console.log("reCAPTCHA verified");
   }
-});
+}
+);
 
 document.getElementById("sendBtn").addEventListener("click", sendOTP);
 
